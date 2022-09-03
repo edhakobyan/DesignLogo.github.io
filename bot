@@ -1,0 +1,43 @@
+import telebot
+from telebot import types
+
+
+
+
+
+
+bot = telebot.TeleBot('5597838979:AAENeaGFpZBKN5dZ95wm0k2dNB-o_Vn4-k8')
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    mess = f'hi, <i>{message.from_user.first_name}</i>, This is Telegram bot of DesignLogo, if you want to see our works write the <i>/works</i>'
+    bot.send_message(message.chat.id, mess, parse_mode='html')
+
+
+
+
+@bot.message_handler(commands=['works'])
+def works(message):
+    markup = types.ReplyKeyboardMarkup()
+    works = types.KeyboardButton('WORKS')
+    start = types.KeyboardButton('OUR TEL.CHAT')
+    markup.add(works,start)
+    bot.send_message(message.chat.id, "choos", reply_markup=markup)
+
+
+
+@bot.message_handler(content_types=['text'])
+def mess(message):
+     if message.text == "WORKS":
+        phot = open('BISNES.jpg', 'rb')
+        phot2 = open('KOLIB.png', 'rb')
+        phot3 = open('PDSS.png', 'rb')
+        bot.send_photo(message.chat.id, phot,)
+        bot.send_photo(message.chat.id, phot2,)
+        bot.send_photo(message.chat.id, phot3,)
+     if message.text == "OUR TEL.CHAT":
+        bot.send_message(message.chat.id, 'https://t.me/DesignStudiooo')   
+
+
+
+bot.polling(none_stop=True)
